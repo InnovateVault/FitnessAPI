@@ -18,7 +18,7 @@ namespace FitnessAPI.Client
                 ?? throw new InvalidOperationException("API Key is missing.");
         }
 
-        public async Task<string> GetExerciseDataAsync(string endpoint, CancellationToken cancellationToken)
+        public async Task<string> GetExerciseDataAsync(string endpoint, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(endpoint))
             {
