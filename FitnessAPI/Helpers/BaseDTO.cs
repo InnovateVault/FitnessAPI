@@ -1,4 +1,4 @@
-﻿namespace FitnessAPI.DTOs
+﻿namespace FitnessAPI.Helpers
 {
     /// <summary>
     /// Base class for common properties of DTOs in the Fitness API.

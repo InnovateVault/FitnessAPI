@@ -1,4 +1,6 @@
-﻿namespace FitnessAPI.DTOs
+﻿using FitnessAPI.Helpers;
+
+namespace FitnessAPI.DTOs
 {
     /// <summary>
     /// Data Transfer Object representing a user's favorite workout in the Fitness API.
