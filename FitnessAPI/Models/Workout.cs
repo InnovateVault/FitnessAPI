@@ -16,7 +16,7 @@ namespace FitnessAPI.Models
         /// Duration of the workout in minutes. Must be a positive number.
         /// </summary>
         [Range(1, int.MaxValue, ErrorMessage = "Duration must be a positive number greater than zero.")]
-        public int Duration { get; set; }
+        public int? Duration { get; set; }
 
         /// <summary>
         /// Name of the workout (required).

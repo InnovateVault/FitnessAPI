@@ -33,7 +33,7 @@
         /// <summary>
         /// Instructions for performing the workout.
         /// </summary>
-        public string? Instructions { get; set; }
+        public List<string>? Instructions { get; set; }
 
         /// <summary>
         /// Difficulty level of the workout (e.g., Easy, Medium, Hard).
@@ -44,5 +44,7 @@
         /// Approximate duration of the workout in minutes.
         /// </summary>
         public int? Duration { get; set; }
+
+        public List<string>? SecondaryMuscles { get; set; }
     }
 }

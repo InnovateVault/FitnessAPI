@@ -1,8 +1,4 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using FitnessAPI.Services;
+﻿using FitnessAPI.Services;
 
 namespace FitnessAPI.Client
 {
@@ -25,7 +21,10 @@ namespace FitnessAPI.Client
                 throw new ArgumentException("Endpoint cannot be null or whitespace.", nameof(endpoint));
             }
 
-            var request = new HttpRequestMessage(HttpMethod.Get, new Uri(endpoint))
+            // Decode the URL from its encoded format
+            var decodedEndpoint = Uri.UnescapeDataString(endpoint);
+
+            var request = new HttpRequestMessage(HttpMethod.Get, new Uri(decodedEndpoint))
             {
                 Headers =
                 {

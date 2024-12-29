@@ -2,6 +2,6 @@
 {
     public interface IFitnessApiClient
     {
-        Task<string> GetExerciseDataAsync(string endpoint, CancellationToken cancellationToken);
+        Task<string> GetExerciseDataAsync(string endpoint, CancellationToken cancellationToken = default);
     }
 }

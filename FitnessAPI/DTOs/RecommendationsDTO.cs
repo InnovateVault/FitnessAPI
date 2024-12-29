@@ -10,6 +10,6 @@ namespace FitnessAPI.DTOs
         /// <summary>
         /// Gets or sets the source of the recommendation.
         /// </summary>
-        public string? RecommendationSource { get; set; }
+        public string RecommendationSource { get; set; } = "AI Recommendation or User Interaction";
     }
 }
