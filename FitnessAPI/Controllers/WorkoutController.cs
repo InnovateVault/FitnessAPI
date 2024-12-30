@@ -8,20 +8,27 @@ namespace FitnessAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class WorkoutController : ControllerBase
+    public class WorkoutsController : ControllerBase
     {
-        public readonly IWorkoutRepository _workoutRepository;
-        public readonly IFitnessApiClient _fitnessApiClient;
+        private readonly IWorkoutRepository _workoutRepository;
+        private readonly IFitnessApiClient _fitnessApiClient;
 
-        public WorkoutController(IWorkoutRepository workoutRepository, IFitnessApiClient fitnessApiClient)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WorkoutController"/> class.
+        /// </summary>
+        /// <param name="workoutRepository">Repository to manage workout data.</param>
+        /// <param name="fitnessApiClient">Service to interact with external exercise data API.</param>
+        public WorkoutsController(IWorkoutRepository workoutRepository, IFitnessApiClient fitnessApiClient)
         {
             _workoutRepository = workoutRepository;
             _fitnessApiClient = fitnessApiClient;
         }
 
-
-
-
+        /// <summary>
+        /// Retrieves workout data from an external API and stores it in the database.
+        /// </summary>
+        /// <param name="endpoint">The API endpoint to fetch data from.</param>
+        /// <returns>A success message or an error response.</returns>
         [HttpGet("{endpoint}")]
         public async Task<IActionResult> GetWorkoutsFromExerciseDbAsync(string endpoint)
         {
@@ -51,7 +58,50 @@ namespace FitnessAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Retrieves all workouts from the database.
+        /// </summary>
+        /// <returns>A list of workouts.</returns>
+        [HttpGet]
+        public IActionResult GetAllWorkouts()
+        {
+            try
+            {
+                var workouts = _workoutRepository.GetAllWorkouts();
+                return Ok(workouts);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An internal error occurred: {ex.Message}");
+            }
+        }
 
-
+        /// <summary>
+        /// Updates a workout in the database.
+        /// </summary>
+        /// <param name="id">The ID of the workout to update.</param>
+        /// <param name="workoutDto">The updated workout details.</param>
+        /// <returns>A success message or an error response.</returns>
+        [HttpPut("{id}")]
+        public IActionResult UpdateWorkout(int id, WorkoutsDTO workoutDto)
+        {
+            try
+            {
+                _workoutRepository.UpdateWorkout(id, workoutDto);
+                return Ok("Workout updated successfully.");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An internal error occurred: {ex.Message}");
+            }
+        }
     }
 }

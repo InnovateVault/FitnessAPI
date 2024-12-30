@@ -95,7 +95,7 @@ namespace FitnessAPI.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Duration")
+                    b.Property<int?>("Duration")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Equipment")
@@ -118,7 +118,7 @@ namespace FitnessAPI.Migrations
             modelBuilder.Entity("FitnessAPI.Models.UserFavorites", b =>
                 {
                     b.HasOne("FitnessAPI.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Favorites")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -137,7 +137,7 @@ namespace FitnessAPI.Migrations
             modelBuilder.Entity("FitnessAPI.Models.UserRecommendations", b =>
                 {
                     b.HasOne("FitnessAPI.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Recommendations")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -151,6 +151,13 @@ namespace FitnessAPI.Migrations
                     b.Navigation("User");
 
                     b.Navigation("Workout");
+                });
+
+            modelBuilder.Entity("FitnessAPI.Models.User", b =>
+                {
+                    b.Navigation("Favorites");
+
+                    b.Navigation("Recommendations");
                 });
 #pragma warning restore 612, 618
         }

@@ -32,5 +32,12 @@ namespace FitnessAPI.Models
         /// </summary>
         /// <remarks>Examples: "Beginner", "Intermediate", "Advanced".</remarks>
         public string? FitnessLevel { get; set; }
+
+        // Navigation property for user favorites
+        public List<UserFavorites> Favorites { get; set; } = new List<UserFavorites>();
+
+        // Navigation property for user recommendations
+        public List<UserRecommendations> Recommendations { get; set; } = new List<UserRecommendations>();
     }
 }
+

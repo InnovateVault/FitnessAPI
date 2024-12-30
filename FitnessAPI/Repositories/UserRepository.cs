@@ -1,5 +1,6 @@
 ﻿using FitnessAPI.Data;
 using FitnessAPI.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -185,7 +186,10 @@ namespace FitnessAPI.Repositories
                 throw new ArgumentException("User ID must be a positive integer.", nameof(id));
             }
 
-            var findUser = _context.Users.Find(id)
+            var findUser = _context.Users
+                .Include(u => u.Favorites) // Include the related UserFavorites
+                .Include(u => u.Recommendations) // Include the related UserRecommendations
+                .FirstOrDefault(u => u.Id == id)
                 ?? throw new KeyNotFoundException($"User with ID {id} not found.");
 
             return findUser;
